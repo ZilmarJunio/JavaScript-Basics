@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do App</title>
+</head>
+<body>
+    
+    <input id="type-todo" placeholder="Type" type="text">
+    <input type="date">
+    <button onclick="addTodos()">Add</button>
+
+    <div id="todo-list"></div>
+
+    <script>
+
+        let todos = [{
+            title: 'Lavar a louça',
+            dueDate: '16-11-2022'
+        }];
+
+        render();
+
+        function addTodos() {
+
+            let textbox = document.getElementById("type-todo");
+            let title = textbox.value;
+            todos.push(title);
+            textbox.value = '';
+            
+            render();
+        }
+
+        function render(){
+
+                let todolist = document.getElementById('todo-list')
+                todolist.innerHTML = '';
+
+                todos.forEach(function todoslist(todos) {
+
+                    let element = document.createElement('div'); //Create a element 'div'
+                    element.innerText = todos.title + ' ' + todos.dueDate //add a text to the "element"
+                    todolist.appendChild(element);
+                
+            });
+        }
+
+    </script>
+</body>
+</html>
