@@ -4,49 +4,116 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do App</title>
-</head>
-<body>
-    
-    <input id="type-todo" placeholder="Type" type="text">
-    <input type="date">
-    <button onclick="addTodos()">Add</button>
+    <title>My Todo App</title>
+  </head>
+  <body>
+    <input placeholder="test" id="todo-title" type="text" />
+    <input placeholder="test" id="date-picker" type="date" />
+    <button onclick="addTodo()">Add Todo</button>
 
     <div id="todo-list"></div>
 
     <script>
+      // Model
+      // If localstorage has a todos array, then use it
+      // Otherwise use the default array.
+      let todos;
 
-        let todos = [{
-            title: 'Lavar a louça',
-            dueDate: '16-11-2022'
+      // Retrieve localStorage
+      const savedTodos = JSON.parse(localStorage.getItem('todos'));
+      // Check if it's an array
+      if (Array.isArray(savedTodos)) {
+        todos = savedTodos;
+      } else {
+        todos = [{
+          title: 'Get groceries',
+          dueDate: '2021-10-04',
+          id: 'id1'
+        }, {
+          title: 'Wash car',
+          dueDate: '2021-02-03',
+          id: 'id2'
+        }, {
+          title: 'Make dinner',
+          dueDate: '2021-03-04',
+          id: 'id3'
         }];
+      }
 
+      // Creates a todo
+      const createTodo = (title, dueDate) => {
+        const id = '' + new Date().getTime();
+
+        todos.push({
+          title: title,
+          dueDate: dueDate,
+          id: id
+        });
+
+        saveTodos();
+      }
+
+      // Deletes a todo
+      const removeTodo = idToDelete => {
+        todos = todos.filter(todo => {
+          // If the id of this todo matches idToDelete, return false
+          // For everything else, return true
+          if (todo.id === idToDelete) {
+            return false;
+          } else {
+            return true;
+          }
+        });
+
+        saveTodos();
+      }
+
+      const saveTodos = () => {
+        localStorage.setItem('todos', JSON.stringify(todos));
+      }
+
+      // Controller
+      const addTodo = () => {
+        const textbox = document.getElementById('todo-title');
+        const title = textbox.value;
+
+        const datePicker = document.getElementById('date-picker');
+        const dueDate = datePicker.value;
+
+        createTodo(title, dueDate);
         render();
+      }
 
-        function addTodos() {
+      const deleteTodo = event => {
+        const deleteButton = event.target;
+        const idToDelete = deleteButton.id;
 
-            let textbox = document.getElementById("type-todo");
-            let title = textbox.value;
-            todos.push(title);
-            textbox.value = '';
-            
-            render();
-        }
+        removeTodo(idToDelete);
+        render();
+      }
 
-        function render(){
+      // View
+      const render = () => {
+        // reset our list
+        document.getElementById('todo-list').innerHTML = '';
 
-                let todolist = document.getElementById('todo-list')
-                todolist.innerHTML = '';
+        todos.forEach(todo => {
+          const element = document.createElement('div');
+          element.innerText = todo.title + ' ' + todo.dueDate;
 
-                todos.forEach(function todoslist(todos) {
+          const deleteButton = document.createElement('button');
+          deleteButton.innerText = 'Delete';
+          deleteButton.style = 'margin-left: 12px';
+          deleteButton.onclick = deleteTodo;
+          deleteButton.id = todo.id;
+          element.appendChild(deleteButton);
 
-                    let element = document.createElement('div'); //Create a element 'div'
-                    element.innerText = todos.title + ' ' + todos.dueDate //add a text to the "element"
-                    todolist.appendChild(element);
-                
-            });
-        }
+          const todoList = document.getElementById('todo-list');
+          todoList.appendChild(element);
+        });
+      }
 
+      render();
     </script>
-</body>
+  </body>
 </html>
