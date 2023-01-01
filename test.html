@@ -10,32 +10,51 @@
 
     <input placeholder="Digite algo" type="text" id="todo-title"/>
     <input placeholder="Insert a date" type="date" name="date-picker" id="date-picker"/>
-    <button onclick="add()">Adicionar</button>
+    <button onclick="addTodo()">Adicionar</button>
 
     <div id="todoList"></div>
 
     <script>
         
-        const todos = [{
+        let todos = [{
             title: 'Lavar a casa',
-            dueDate: '2022-27-12'
+            dueDate: '2022-27-12',
+            id: '1'
         }, {
             title: 'Lavar o carro',
-            dueDate: ' 2022-27-12'
+            dueDate: ' 2022-27-12',
+            id: '2'
         }];
-        
-    function add(){
+
+    function addTodo(){
         const textbox = document.getElementById('todo-title');  
         const title = textbox.value;
 
         const datePicker = document.getElementById('date-picker');
         const dueDate = datePicker.value;
 
-        
+        const id = '' + new Date().getTime();
+
         todos.push({
             title: title,
-            dueDate: dueDate
+            dueDate: dueDate,
+            id: id
         })
+
+        render();
+    }
+
+    function deleteTodo(event){
+        const deleteButton = event.target;
+        const idToDelete = deleteButton.id;
+
+        todos  = todos.filter(function(todo){
+            if(todo.id === idToDelete){
+                return false;
+            } else {
+                return true;
+            }
+        });
 
         render();
     }
@@ -44,10 +63,19 @@
         todoList = document.getElementById('todoList');
         todoList.innerHTML = '';
 
-        todos.forEach(element => {
+        todos.forEach(function (todo){
 
         const newTask = document.createElement('div');
-        newTask.innerText = element;
+        newTask.innerText = todo.title + " " + todo.dueDate;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = 'Delete';
+        deleteButton.style = 'margin-left: 12px';
+        deleteButton.onclick = deleteTodo;
+        deleteButton.id = todo.id;
+
+        newTask.appendChild(deleteButton);
+
         todoList.appendChild(newTask);
 
         });
