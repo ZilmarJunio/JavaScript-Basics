@@ -26,13 +26,7 @@
             id: '2'
         }];
 
-    function addTodo(){
-        const textbox = document.getElementById('todo-title');  
-        const title = textbox.value;
-
-        const datePicker = document.getElementById('date-picker');
-        const dueDate = datePicker.value;
-
+    function createTodo(title, dueDate){
         const id = '' + new Date().getTime();
 
         todos.push({
@@ -40,6 +34,30 @@
             dueDate: dueDate,
             id: id
         })
+    }
+
+    function removeTodo(idToDelete) {
+        todos  = todos.filter(function(todo){
+            if(todo.id === idToDelete){
+                return false;
+            } else {
+                return true;
+            }
+        });
+    }
+
+    function saveTodos() {
+        localStorage.setItem('todos', JSON.stringify(todos))
+    }
+
+    function addTodo(){
+        const textbox = document.getElementById('todo-title');  
+        const title = textbox.value;
+
+        const datePicker = document.getElementById('date-picker');
+        const dueDate = datePicker.value;
+
+        createTodo(title, dueDate);
 
         render();
     }
@@ -48,14 +66,8 @@
         const deleteButton = event.target;
         const idToDelete = deleteButton.id;
 
-        todos  = todos.filter(function(todo){
-            if(todo.id === idToDelete){
-                return false;
-            } else {
-                return true;
-            }
-        });
-
+        
+        removeTodo(idToDelete);
         render();
     }
 
@@ -80,6 +92,8 @@
 
         });
     } 
+
+    render();
   
     </script>
 
