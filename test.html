@@ -15,16 +15,25 @@
     <div id="todoList"></div>
 
     <script>
+
+        let todos;
+
+        const savedTodos = JSON.parse(localStorage.getItem('todos'));
+
+        if(Array.isArray(savedTodos)){
+            todos = savedTodos;
+        } else {
+            todos = [{  
+                title: 'Lavar a casa',
+                dueDate: '2022-27-12',
+                id: '1'
+            }, {
+                title: 'Lavar o carro',
+                dueDate: ' 2022-27-12',
+                id: '2'
+            }];
+        }
         
-        let todos = [{
-            title: 'Lavar a casa',
-            dueDate: '2022-27-12',
-            id: '1'
-        }, {
-            title: 'Lavar o carro',
-            dueDate: ' 2022-27-12',
-            id: '2'
-        }];
 
     function createTodo(title, dueDate){
         const id = '' + new Date().getTime();
@@ -34,6 +43,8 @@
             dueDate: dueDate,
             id: id
         })
+
+        saveTodos();
     }
 
     function removeTodo(idToDelete) {
@@ -44,6 +55,8 @@
                 return true;
             }
         });
+
+        saveTodos();
     }
 
     function saveTodos() {
@@ -78,16 +91,16 @@
         todos.forEach(function (todo){
 
         const newTask = document.createElement('div');
+        const deleteButton = document.createElement('button');
+
         newTask.innerText = todo.title + " " + todo.dueDate;
 
-        const deleteButton = document.createElement('button');
         deleteButton.innerText = 'Delete';
-        deleteButton.style = 'margin-left: 12px';
+        deleteButton.style = ;
         deleteButton.onclick = deleteTodo;
         deleteButton.id = todo.id;
 
         newTask.appendChild(deleteButton);
-
         todoList.appendChild(newTask);
 
         });
