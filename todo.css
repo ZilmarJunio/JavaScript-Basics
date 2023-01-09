@@ -13,7 +13,7 @@ h1{
 .todoList{
     display: flex;
     flex-direction: column;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(202, 202, 202);
     align-items: center;
     padding: 20px 0px;
     box-shadow:  inset 0.3px 0.3px 2px black;
@@ -65,4 +65,9 @@ h1{
 }
 .deleteButton:hover{
     border: solid white 0.5px;
+}
+.newTask{
+    border: solid white 0.8px;
+    padding: 5px 400px;
+    border-radius: 10px;
 }
