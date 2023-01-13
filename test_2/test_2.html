@@ -5,15 +5,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        .squares-container{
+            display: flex;
+            justify-content: center;
+        }
+        .grandparent{
+            background-color: red;
+            height: 180px;
+            width: 180px;
+        }
+        .parent{
+            background-color: blue;
+            height: 120px;
+            width: 120px;  
+        }
+        .child{
+            background-color: green;
+            height: 60px;
+            width: 60px;    
+        }
+        .grandparent, .parent, .child{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
 </head>
 <body>
     
-    <div class="container1" id="container1"></div>
-
+    <div class="squares-container">
+        <div class="grandparent">
+            <div class="parent">
+                <div class="child"></div>
+            </div>
+        </div>
+    </div>
     <script>
         
-        const obj1 = document.getElementById('container1');
-        prompt(obj1+'')
+        const grandparent = document.querySelector("grandparent");
+        const parent = document.querySelector("parent");
+        const child = document.querySelector("child");
+
+        grandparent.addEventListener('click')
 
     </script>
 
