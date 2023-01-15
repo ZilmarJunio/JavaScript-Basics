@@ -7,6 +7,10 @@
     <title>Document</title>
 
     <style>
+        body{
+            width: 100%;
+            height: 900px;
+        }
         .squares-container{
             display: flex;
             justify-content: center;
@@ -53,12 +57,20 @@
             document.body.style = 'visibility: hidden;';
         }
 
-        child.addEventListener('click', e => {
-            random()
+        function random2() {
+            document.body.style = 'visibility: visible;';
+        }
+
+        child.addEventListener('onmoseout', e => {
+            random();
         })
 
-        document.body.addEventListener('click', e => {
-            random2()
+        document.addEventListener('onmouseout', e => {
+            if(document.body.style.visibility === 'hidden'){
+                random2();
+            }else{
+                console.log('failed')
+            }
         })
 
     </script>
