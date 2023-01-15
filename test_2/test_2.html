@@ -39,7 +39,7 @@
     <div class="squares-container">
         <div class="grandparent">
             <div class="parent">
-                <div class="child"></div>
+                <div class="child" id="child"></div>
             </div>
         </div>
     </div>
@@ -47,9 +47,19 @@
         
         const grandparent = document.querySelector("grandparent");
         const parent = document.querySelector("parent");
-        const child = document.querySelector("child");
+        const child = document.getElementById("child");
 
-        grandparent.addEventListener('click')
+        function random() {
+            document.body.style = 'visibility: hidden;';
+        }
+
+        child.addEventListener('click', e => {
+            random()
+        })
+
+        document.body.addEventListener('click', e => {
+            random2()
+        })
 
     </script>
 
