@@ -35,6 +35,13 @@
             align-items: center;
             justify-content: center;
         }
+        
+        .testBlock{
+            position: absolute;
+            background-color: black;
+            height: 5px;
+            width: 5px;
+        }
     </style>
 
 </head>
@@ -47,31 +54,39 @@
             </div>
         </div>
     </div>
+
+    <div>
+        <div class="testBlock"></div>
+    </div>
     <script>
         
-        const grandparent = document.querySelector("grandparent");
-        const parent = document.querySelector("parent");
-        const child = document.getElementById("child");
+    const grandparent = document.querySelector(".grandparent");
+    const parent = document.querySelector(".parent");
+    const child = document.querySelector(".child");
 
-        function random() {
-            document.body.style = 'visibility: hidden;';
-        }
+    document.addEventListener('keydown', (event) => {
 
-        function random2() {
-            document.body.style = 'visibility: visible;';
-        }
+    var name = event.key;
+    var code = event.code;
+    
+    if(code === "ArrowUp"){
 
-        child.addEventListener('onmoseout', e => {
-            random();
-        })
+    }
 
-        document.addEventListener('onmouseout', e => {
-            if(document.body.style.visibility === 'hidden'){
-                random2();
-            }else{
-                console.log('failed')
-            }
-        })
+    if(code === "ArrowDown"){
+        
+    }
+
+    if(code === "ArrowLeft"){
+        
+    }
+
+    if(code === "ArrowRight"){
+        
+    }
+
+    console.log(`Key pressed: ${name} \r\n Key code value: ${code}`);
+    }, false);
 
     </script>
 
