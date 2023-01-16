@@ -8,7 +8,7 @@
 
     <style>
         body{
-            width: 100%;
+            width: 90%;
             height: 900px;
         }
         .squares-container{
@@ -35,12 +35,20 @@
             align-items: center;
             justify-content: center;
         }
-        
+        .room{
+            width: 100px;
+            height: 100px;  
+        }
         .testBlock{
-            position: absolute;
+            
+            position:fixed;
             background-color: black;
             height: 5px;
             width: 5px;
+            left: 0px;
+            top: 0px;
+
+            
         }
     </style>
 
@@ -55,7 +63,7 @@
         </div>
     </div>
 
-    <div>
+    <div class="room">
         <div class="testBlock"></div>
     </div>
     <script>
@@ -64,25 +72,34 @@
     const parent = document.querySelector(".parent");
     const child = document.querySelector(".child");
 
+    const testBlock = document.querySelector(".testBlock");
+
+    let left_ = 0;
+    let top_ = 0;
+
     document.addEventListener('keydown', (event) => {
 
     var name = event.key;
     var code = event.code;
     
     if(code === "ArrowUp"){
-
+        top_-=10;
+        testBlock.style.top = `${top_}px`
     }
 
     if(code === "ArrowDown"){
-        
+        top_+=10;
+        testBlock.style.top = `${top_}px`
     }
 
     if(code === "ArrowLeft"){
-        
+        left_-=10;
+        testBlock.style.left = `${left_}px`
     }
 
     if(code === "ArrowRight"){
-        
+        left_+=10;
+        testBlock.style.left = `${left_}px`
     }
 
     console.log(`Key pressed: ${name} \r\n Key code value: ${code}`);
